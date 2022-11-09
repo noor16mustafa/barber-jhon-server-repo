@@ -50,6 +50,19 @@ async function run() {
             res.send(result);
         })
 
+        app.get('/reviews', async (req, res) => {
+            let query = {};
+
+            if (req.query.service) {
+                query = {
+                    service: req.query.service
+                }
+            }
+            const cursor = reviewCollection.find(query);
+            const reviews = await cursor.toArray();
+            res.send(reviews);
+        })
+
     }
     catch (error) {
         console.error(error);
