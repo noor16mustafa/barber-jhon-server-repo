@@ -61,7 +61,22 @@ async function run() {
             const cursor = reviewCollection.find(query);
             const reviews = await cursor.toArray();
             res.send(reviews);
-        })
+        });
+        //get api for user review
+
+        app.get('/reviews', async (req, res) => {
+            let query = {};
+
+            if (req.query.email) {
+                query = {
+                    email: req.query.email
+                }
+            }
+            const cursor = reviewCollection.find(query);
+            const reviews = await cursor.toArray();
+            res.send(reviews);
+        });
+
 
     }
     catch (error) {
