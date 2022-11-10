@@ -95,11 +95,13 @@ async function run() {
         });
         //get api for user review
 
-        app.get('/reviews', verifyJWT, async (req, res) => {
+        app.get('/reviews', async (req, res) => {
             const decoded = req.decoded;
+            console.log(decoded);
             if (decoded.email !== req.query.email) {
                 res.status(403).send({ message: 'unauthorized access' })
             }
+
             let query = {};
 
             if (req.query.email) {
