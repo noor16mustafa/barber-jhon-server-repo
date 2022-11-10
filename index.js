@@ -20,6 +20,7 @@ async function run() {
         const serviceCollection = client.db('barberServiceReview').collection('services');
         const reviewCollection = client.db('barberServiceReview').collection('reviews');
 
+        //services api
         app.get('/servicesHome', async (req, res) => {
             const query = {};
             const cursor = serviceCollection.find(query);
@@ -42,6 +43,13 @@ async function run() {
             res.send(service);
         });
 
+        app.post('/services', async (req, res) => {
+            const service = req.body;
+
+            const result = await serviceCollection.insertOne(service);
+            res.send(result);
+        })
+
         //review api
         app.post('/reviews', async (req, res) => {
             const reviewDetails = req.body;
@@ -58,7 +66,7 @@ async function run() {
                     service: req.query.service
                 }
             }
-            const cursor = reviewCollection.find(query);
+            const cursor = reviewCollection.find(query).sort({ time: -1 });
             const reviews = await cursor.toArray();
             res.send(reviews);
         });
