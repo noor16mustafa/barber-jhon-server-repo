@@ -95,15 +95,15 @@ async function run() {
         });
         //get api for user review
 
-        app.get('/reviews', async (req, res) => {
-            const decoded = req.decoded;
-            console.log(decoded);
-            if (decoded.email !== req.query.email) {
-                res.status(403).send({ message: 'unauthorized access' })
-            }
+        app.get('/myreviews', async (req, res) => {
+            // const decoded = req.decoded;
+            // console.log(decoded);
+            // if (decoded.email !== req.query.email) {
+            //     res.status(403).send({ message: 'unauthorized access' })
+            // }
 
             let query = {};
-
+            console.log(req.query.email)
             if (req.query.email) {
                 query = {
                     email: req.query.email
